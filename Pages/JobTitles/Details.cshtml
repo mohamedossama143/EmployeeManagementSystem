@@ -1,0 +1,34 @@
+@page "{id:int}"
+@model EmployeeManagementSystem.Pages.JobTitles.DetailsModel
+
+@{
+    ViewData["Title"] = "Job Title Details";
+}
+
+<h1>Job Title Details</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Title</dt>
+            <dd class="col-sm-8">@Model.JobTitle.Title</dd>
+
+            <dt class="col-sm-4">Employees with this title</dt>
+            <dd class="col-sm-8">@(Model.JobTitle.Employees?.Count ?? 0)</dd>
+        </dl>
+
+        @if (Model.JobTitle.Employees != null && Model.JobTitle.Employees.Any())
+        {
+            <h5>Assigned Employees</h5>
+            <ul class="list-group mb-3">
+                @foreach (var emp in Model.JobTitle.Employees)
+                {
+                    <li class="list-group-item">@emp.FullName</li>
+                }
+            </ul>
+        }
+
+        <a asp-page="Edit" asp-route-id="@Model.JobTitle.Id" class="btn btn-outline-secondary">Edit</a>
+        <a asp-page="Index" class="btn btn-outline-primary">Back to List</a>
+    </div>
+</div>
