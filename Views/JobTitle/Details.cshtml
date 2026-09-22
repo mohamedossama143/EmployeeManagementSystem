@@ -1,0 +1,33 @@
+@model EmployeeManagementSystem.Models.JobTitle
+
+@{
+    ViewData["Title"] = "Job Title Details";
+}
+
+<h1>Job Title Details</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Title)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+
+            <dt class="col-sm-4">Employees with this title</dt>
+            <dd class="col-sm-8">@(Model.Employees?.Count ?? 0)</dd>
+        </dl>
+
+        @if (Model.Employees != null && Model.Employees.Any())
+        {
+            <h5>Assigned Employees</h5>
+            <ul class="list-group mb-3">
+                @foreach (var emp in Model.Employees)
+                {
+                    <li class="list-group-item">@emp.FullName</li>
+                }
+            </ul>
+        }
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+    </div>
+</div>
