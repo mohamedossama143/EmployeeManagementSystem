@@ -1,0 +1,42 @@
+﻿@model EmployeeManagementSystem.Models.Department
+
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+<h1 class="h3">Department Details</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Id)</dt>
+    <dd class="col-sm-10">@Model.Id</dd>
+
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+    <dd class="col-sm-10">@Model.Name</dd>
+</dl>
+
+<h5>Employees (@(Model.Employees?.Count ?? 0))</h5>
+@if (Model.Employees != null && Model.Employees.Any())
+{
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr><th>Full Name</th><th>Email</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model.Employees)
+            {
+                <tr>
+                    <td>@emp.FullName</td>
+                    <td>@emp.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No employees in this department.</p>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
