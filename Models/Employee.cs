@@ -26,6 +26,9 @@ namespace EmployeeManagementSystem.Models
 
         public string? ProfileImagePath { get; set; }
 
+        [NotMapped]
+        public IFormFile? FeatureImage { get; set; }
+
         // Foreign Keys
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
