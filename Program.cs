@@ -8,7 +8,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+        _ => "This field is required.");
+});
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
