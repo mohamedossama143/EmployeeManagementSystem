@@ -1,13 +1,26 @@
+using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EmployeeManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.EmployeeCount = await _context.Employees.CountAsync();
+            ViewBag.DepartmentCount = await _context.Departments.CountAsync();
+            ViewBag.JobTitleCount = await _context.JobTitles.CountAsync();
+
             return View();
         }
 

@@ -5,21 +5,26 @@
     ViewData["Title"] = "Job Title Details";
 }
 
-<h1>Job Title Details</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Job Title Details</h1>
+</div>
 
-<div class="row">
-    <div class="col-md-6">
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Job Title Information</h6>
+    </div>
+    <div class="card-body">
         <dl class="row">
-            <dt class="col-sm-4">Title</dt>
-            <dd class="col-sm-8">@Model.JobTitle.Title</dd>
+            <dt class="col-sm-3">Title</dt>
+            <dd class="col-sm-9">@Model.JobTitle.Title</dd>
 
-            <dt class="col-sm-4">Employees with this title</dt>
-            <dd class="col-sm-8">@(Model.JobTitle.Employees?.Count ?? 0)</dd>
+            <dt class="col-sm-3">Employees with this title</dt>
+            <dd class="col-sm-9">@(Model.JobTitle.Employees?.Count ?? 0)</dd>
         </dl>
 
         @if (Model.JobTitle.Employees != null && Model.JobTitle.Employees.Any())
         {
-            <h5>Assigned Employees</h5>
+            <h6 class="font-weight-bold">Assigned Employees</h6>
             <ul class="list-group mb-3">
                 @foreach (var emp in Model.JobTitle.Employees)
                 {
@@ -28,7 +33,11 @@
             </ul>
         }
 
-        <a asp-page="Edit" asp-route-id="@Model.JobTitle.Id" class="btn btn-outline-secondary">Edit</a>
-        <a asp-page="Index" class="btn btn-outline-primary">Back to List</a>
+        <a asp-page="Edit" asp-route-id="@Model.JobTitle.Id" class="btn btn-warning">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a asp-page="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
     </div>
 </div>
