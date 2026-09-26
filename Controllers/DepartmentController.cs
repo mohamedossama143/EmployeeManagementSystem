@@ -15,12 +15,22 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         // GET: /Department
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search)
         {
-            var departments = await _context.Departments
+            var query = _context.Departments
                 .Include(d => d.Employees)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(d => d.Name.Contains(search));
+
+            ViewBag.Search = search;
+
+            var departments = await query
                 .AsNoTracking()
+                .OrderBy(d => d.Name)
                 .ToListAsync();
+
             return View(departments);
         }
 
